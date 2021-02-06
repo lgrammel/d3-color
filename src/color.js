@@ -294,7 +294,7 @@ export function hslConvert(o) {
   if (!o) return new Hsl;
   if (o instanceof Hsl) return o;
   o = o.rgb();
-  var r = o.r / 255,
+  let r = o.r / 255,
       g = o.g / 255,
       b = o.b / 255,
       min = Math.min(r, g, b),
@@ -335,11 +335,11 @@ define(Hsl, hsl, extend(Color, {
     return new Hsl(this.h, this.s, this.l * k, this.opacity);
   },
   rgb: function() {
-    var h = this.h % 360 + (this.h < 0) * 360,
-        s = isNaN(h) || isNaN(this.s) ? 0 : this.s,
-        l = this.l,
-        m2 = l + (l < 0.5 ? l : 1 - l) * s,
-        m1 = 2 * l - m2;
+    const h = this.h % 360 + (this.h < 0) * 360,
+          s = isNaN(h) || isNaN(this.s) ? 0 : this.s,
+          l = this.l,
+          m2 = l + (l < 0.5 ? l : 1 - l) * s,
+          m1 = 2 * l - m2;
     return new Rgb(
       hsl2rgb(h >= 240 ? h - 240 : h + 120, m1, m2),
       hsl2rgb(h, m1, m2),
