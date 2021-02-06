@@ -1,11 +1,11 @@
-var tape = require("tape"),
-    color = require("../");
+const tape = require("tape"),
+      color = require("../");
 
 require("./hslEqual");
 require("./rgbEqual");
 
 tape("hsl(…) returns an instance of hsl and color", function(test) {
-  var c = color.hsl(120, 0.4, 0.5);
+  const c = color.hsl(120, 0.4, 0.5);
   test.ok(c instanceof color.hsl);
   test.ok(c instanceof color.color);
   test.end();
@@ -54,7 +54,7 @@ tape("hsl.formatHex() formats as #rrggbb", function(test) {
 });
 
 tape("hsl.toString() reflects h, s and l channel values and opacity", function(test) {
-  var c = color.hsl("#abc");
+  const c = color.hsl("#abc");
   c.h += 10, c.s += 0.01, c.l -= 0.01, c.opacity = 0.4;
   test.equal(c + "", "rgba(166, 178, 203, 0.4)");
   test.end();
@@ -73,7 +73,7 @@ tape("hsl.toString() treats undefined channel values as 0", function(test) {
 });
 
 tape("hsl.toString() treats undefined opacity as 1", function(test) {
-  var c = color.hsl("#abc");
+  const c = color.hsl("#abc");
   c.opacity = NaN;
   test.equal(c + "", "rgb(170, 187, 204)");
   test.end();
@@ -184,8 +184,8 @@ tape("hsl(format) returns undefined channel values for unknown formats", functio
 });
 
 tape("hsl(hsl) copies an HSL color", function(test) {
-  var c1 = color.hsl("hsla(120,30%,50%,0.4)"),
-      c2 = color.hsl(c1);
+  const c1 = color.hsl("hsla(120,30%,50%,0.4)"),
+        c2 = color.hsl(c1);
   test.hslEqual(c1, 120, 0.3, 0.5, 0.4);
   c1.h = c1.s = c1.l = c1.opacity = 0;
   test.hslEqual(c1, 0, 0, 0, 0);
@@ -240,7 +240,7 @@ tape("hsl.displayable() returns true if the color is within the RGB gamut and th
 });
 
 tape("hsl.brighter(k) returns a brighter color if k > 0", function(test) {
-  var c = color.hsl("rgba(165, 42, 42, 0.4)");
+  const c = color.hsl("rgba(165, 42, 42, 0.4)");
   test.hslEqual(c.brighter(0.5), 0, 0.5942028, 0.4851222, 0.4);
   test.hslEqual(c.brighter(1), 0, 0.5942028, 0.5798319, 0.4);
   test.hslEqual(c.brighter(2), 0, 0.5942028, 0.8283313, 0.4);
@@ -248,39 +248,39 @@ tape("hsl.brighter(k) returns a brighter color if k > 0", function(test) {
 });
 
 tape("hsl.brighter(k) returns a copy", function(test) {
-  var c1 = color.hsl("rgba(70, 130, 180, 0.4)"),
-      c2 = c1.brighter(1);
+  const c1 = color.hsl("rgba(70, 130, 180, 0.4)"),
+        c2 = c1.brighter(1);
   test.hslEqual(c1, 207.272727, 0.44, 0.4901961, 0.4);
   test.hslEqual(c2, 207.272727, 0.44, 0.7002801, 0.4);
   test.end();
 });
 
 tape("hsl.brighter() is equivalent to hsl.brighter(1)", function(test) {
-  var c1 = color.hsl("rgba(70, 130, 180, 0.4)"),
-      c2 = c1.brighter(),
-      c3 = c1.brighter(1);
+  const c1 = color.hsl("rgba(70, 130, 180, 0.4)"),
+        c2 = c1.brighter(),
+        c3 = c1.brighter(1);
   test.hslEqual(c2, c3.h, c3.s, c3.l, 0.4);
   test.end();
 });
 
 tape("hsl.brighter(k) is equivalent to hsl.darker(-k)", function(test) {
-  var c1 = color.hsl("rgba(70, 130, 180, 0.4)"),
-      c2 = c1.brighter(1.5),
-      c3 = c1.darker(-1.5);
+  const c1 = color.hsl("rgba(70, 130, 180, 0.4)"),
+        c2 = c1.brighter(1.5),
+        c3 = c1.darker(-1.5);
   test.hslEqual(c2, c3.h, c3.s, c3.l, 0.4);
   test.end();
 });
 
 tape("hsl(\"black\").brighter() still returns black", function(test) {
-  var c1 = color.hsl("black"),
-      c2 = c1.brighter(1);
+  const c1 = color.hsl("black"),
+        c2 = c1.brighter(1);
   test.hslEqual(c1, NaN, NaN, 0, 1);
   test.hslEqual(c2, NaN, NaN, 0, 1);
   test.end();
 });
 
 tape("hsl.darker(k) returns a darker color if k > 0", function(test) {
-  var c = color.hsl("rgba(165, 42, 42, 0.4)");
+  const c = color.hsl("rgba(165, 42, 42, 0.4)");
   test.hslEqual(c.darker(0.5), 0, 0.5942029, 0.3395855, 0.4);
   test.hslEqual(c.darker(1), 0, 0.5942029, 0.2841176, 0.4);
   test.hslEqual(c.darker(2), 0, 0.5942029, 0.1988823, 0.4);
@@ -288,37 +288,37 @@ tape("hsl.darker(k) returns a darker color if k > 0", function(test) {
 });
 
 tape("hsl.darker(k) returns a copy", function(test) {
-  var c1 = color.hsl("rgba(70, 130, 180, 0.4)"),
-      c2 = c1.darker(1);
+  const c1 = color.hsl("rgba(70, 130, 180, 0.4)"),
+        c2 = c1.darker(1);
   test.hslEqual(c1, 207.272727, 0.44, 0.4901961, 0.4);
   test.hslEqual(c2, 207.272727, 0.44, 0.3431373, 0.4);
   test.end();
 });
 
 tape("hsl.darker() is equivalent to hsl.darker(1)", function(test) {
-  var c1 = color.hsl("rgba(70, 130, 180, 0.4)"),
-      c2 = c1.darker(),
-      c3 = c1.darker(1);
+  const c1 = color.hsl("rgba(70, 130, 180, 0.4)"),
+        c2 = c1.darker(),
+        c3 = c1.darker(1);
   test.hslEqual(c2, c3.h, c3.s, c3.l, 0.4);
   test.end();
 });
 
 tape("hsl.darker(k) is equivalent to hsl.brighter(-k)", function(test) {
-  var c1 = color.hsl("rgba(70, 130, 180, 0.4)"),
-      c2 = c1.darker(1.5),
-      c3 = c1.brighter(-1.5);
+  const c1 = color.hsl("rgba(70, 130, 180, 0.4)"),
+        c2 = c1.darker(1.5),
+        c3 = c1.brighter(-1.5);
   test.hslEqual(c2, c3.h, c3.s, c3.l, 0.4);
   test.end();
 });
 
 tape("hsl.rgb() converts to RGB", function(test) {
-  var c = color.hsl(120, 0.3, 0.5, 0.4);
+  const c = color.hsl(120, 0.3, 0.5, 0.4);
   test.rgbEqual(c.rgb(), 89, 166, 89, 0.4);
   test.end();
 });
 
 tape("hsl.copy(…) returns a new hsl with the specified channel values", function(test) {
-  var c = color.hsl(120, 0.3, 0.5, 0.4);
+  const c = color.hsl(120, 0.3, 0.5, 0.4);
   test.equal(c.copy() instanceof color.hsl, true);
   test.equal(c.copy().formatHsl(), "hsla(120, 30%, 50%, 0.4)");
   test.equal(c.copy({opacity: 1}).formatHsl(), "hsl(120, 30%, 50%)");

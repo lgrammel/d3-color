@@ -2,21 +2,21 @@ import define, {extend} from "./define.js";
 
 export function Color() {}
 
-export var darker = 0.7;
-export var brighter = 1 / darker;
+export const darker = 0.7;
+export const brighter = 1 / darker;
 
-var reI = "\\s*([+-]?\\d+)\\s*",
-    reN = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)\\s*",
-    reP = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)%\\s*",
-    reHex = /^#([0-9a-f]{3,8})$/,
-    reRgbInteger = new RegExp("^rgb\\(" + [reI, reI, reI] + "\\)$"),
-    reRgbPercent = new RegExp("^rgb\\(" + [reP, reP, reP] + "\\)$"),
-    reRgbaInteger = new RegExp("^rgba\\(" + [reI, reI, reI, reN] + "\\)$"),
-    reRgbaPercent = new RegExp("^rgba\\(" + [reP, reP, reP, reN] + "\\)$"),
-    reHslPercent = new RegExp("^hsl\\(" + [reN, reP, reP] + "\\)$"),
-    reHslaPercent = new RegExp("^hsla\\(" + [reN, reP, reP, reN] + "\\)$");
+const reI = "\\s*([+-]?\\d+)\\s*",
+      reN = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)\\s*",
+      reP = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)%\\s*",
+      reHex = /^#([0-9a-f]{3,8})$/,
+      reRgbInteger = new RegExp("^rgb\\(" + [reI, reI, reI] + "\\)$"),
+      reRgbPercent = new RegExp("^rgb\\(" + [reP, reP, reP] + "\\)$"),
+      reRgbaInteger = new RegExp("^rgba\\(" + [reI, reI, reI, reN] + "\\)$"),
+      reRgbaPercent = new RegExp("^rgba\\(" + [reP, reP, reP, reN] + "\\)$"),
+      reHslPercent = new RegExp("^hsl\\(" + [reN, reP, reP] + "\\)$"),
+      reHslaPercent = new RegExp("^hsla\\(" + [reN, reP, reP, reN] + "\\)$");
 
-var named = {
+const named = {
   aliceblue: 0xf0f8ff,
   antiquewhite: 0xfaebd7,
   aqua: 0x00ffff,
@@ -194,7 +194,7 @@ function color_formatRgb() {
 }
 
 export default function color(format) {
-  var m, l;
+  let m, l;
   format = (format + "").trim().toLowerCase();
   return (m = reHex.exec(format)) ? (l = m[1].length, m = parseInt(m[1], 16), l === 6 ? rgbn(m) // #ff0000
       : l === 3 ? new Rgb((m >> 8 & 0xf) | (m >> 4 & 0xf0), (m >> 4 & 0xf) | (m & 0xf0), ((m & 0xf) << 4) | (m & 0xf), 1) // #f00
@@ -268,7 +268,7 @@ function rgb_formatHex() {
 }
 
 function rgb_formatRgb() {
-  var a = this.opacity; a = isNaN(a) ? 1 : Math.max(0, Math.min(1, a));
+  let a = this.opacity; a = isNaN(a) ? 1 : Math.max(0, Math.min(1, a));
   return (a === 1 ? "rgb(" : "rgba(")
       + Math.max(0, Math.min(255, Math.round(this.r) || 0)) + ", "
       + Math.max(0, Math.min(255, Math.round(this.g) || 0)) + ", "
@@ -294,7 +294,7 @@ export function hslConvert(o) {
   if (!o) return new Hsl;
   if (o instanceof Hsl) return o;
   o = o.rgb();
-  var r = o.r / 255,
+  let r = o.r / 255,
       g = o.g / 255,
       b = o.b / 255,
       min = Math.min(r, g, b),
@@ -335,11 +335,11 @@ define(Hsl, hsl, extend(Color, {
     return new Hsl(this.h, this.s, this.l * k, this.opacity);
   },
   rgb: function() {
-    var h = this.h % 360 + (this.h < 0) * 360,
-        s = isNaN(h) || isNaN(this.s) ? 0 : this.s,
-        l = this.l,
-        m2 = l + (l < 0.5 ? l : 1 - l) * s,
-        m1 = 2 * l - m2;
+    const h = this.h % 360 + (this.h < 0) * 360,
+          s = isNaN(h) || isNaN(this.s) ? 0 : this.s,
+          l = this.l,
+          m2 = l + (l < 0.5 ? l : 1 - l) * s,
+          m1 = 2 * l - m2;
     return new Rgb(
       hsl2rgb(h >= 240 ? h - 240 : h + 120, m1, m2),
       hsl2rgb(h, m1, m2),
@@ -353,7 +353,7 @@ define(Hsl, hsl, extend(Color, {
         && (0 <= this.opacity && this.opacity <= 1);
   },
   formatHsl: function() {
-    var a = this.opacity; a = isNaN(a) ? 1 : Math.max(0, Math.min(1, a));
+    let a = this.opacity; a = isNaN(a) ? 1 : Math.max(0, Math.min(1, a));
     return (a === 1 ? "hsl(" : "hsla(")
         + (this.h || 0) + ", "
         + (this.s || 0) * 100 + "%, "

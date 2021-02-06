@@ -1,11 +1,11 @@
-var tape = require("tape"),
-    color = require("../");
+const tape = require("tape"),
+      color = require("../");
 
 require("./labEqual");
 require("./rgbEqual");
 
 tape("lab(…) returns an instance of lab and color", function(test) {
-  var c = color.lab(120, 40, 50);
+  const c = color.lab(120, 40, 50);
   test.ok(c instanceof color.lab);
   test.ok(c instanceof color.color);
   test.end();
@@ -29,7 +29,7 @@ tape("lab.toString() converts to RGB and formats as rgb(…) or rgba(…)", func
 });
 
 tape("lab.toString() reflects l, a and b channel values and opacity", function(test) {
-  var c = color.lab("#abc");
+  const c = color.lab("#abc");
   c.l += 10, c.a -= 10, c.b += 10, c.opacity = 0.4;
   test.equal(c + "", "rgba(184, 220, 213, 0.4)");
   test.end();
@@ -45,7 +45,7 @@ tape("lab.toString() treats undefined channel values as 0", function(test) {
 });
 
 tape("lab.toString() treats undefined opacity as 1", function(test) {
-  var c = color.lab("#abc");
+  const c = color.lab("#abc");
   c.opacity = NaN;
   test.equal(c + "", "rgb(170, 187, 204)");
   test.end();
@@ -107,8 +107,8 @@ tape("lab(format) returns undefined channel values for unknown formats", functio
 });
 
 tape("lab(lab) copies a Lab color", function(test) {
-  var c1 = color.lab(50, 4, -5, 0.4),
-      c2 = color.lab(c1);
+  const c1 = color.lab(50, 4, -5, 0.4),
+        c2 = color.lab(c1);
   test.labEqual(c1, 50, 4, -5, 0.4);
   c1.l = c1.a = c1.b = c1.opacity = 0;
   test.labEqual(c1, 0, 0, 0, 0);
@@ -136,7 +136,7 @@ tape("lab(color) converts from another colorspace via color.rgb()", function(tes
 });
 
 tape("lab.brighter(k) returns a brighter color if k > 0", function(test) {
-  var c = color.lab("rgba(165, 42, 42, 0.4)");
+  const c = color.lab("rgba(165, 42, 42, 0.4)");
   test.labEqual(c.brighter(0.5), 47.149667346714935, 50.388769337115, 31.834059255569358, 0.4);
   test.labEqual(c.brighter(1), 56.149667346714935, 50.388769337115, 31.834059255569358, 0.4);
   test.labEqual(c.brighter(2), 74.14966734671493, 50.388769337115, 31.834059255569358, 0.4);
@@ -144,31 +144,31 @@ tape("lab.brighter(k) returns a brighter color if k > 0", function(test) {
 });
 
 tape("lab.brighter(k) returns a copy", function(test) {
-  var c1 = color.lab("rgba(70, 130, 180, 0.4)"),
-      c2 = c1.brighter(1);
+  const c1 = color.lab("rgba(70, 130, 180, 0.4)"),
+        c2 = c1.brighter(1);
   test.labEqual(c1, 51.98624890550498, -8.362792037014344, -32.832699449697685, 0.4);
   test.labEqual(c2, 69.98624890550498, -8.362792037014344, -32.832699449697685, 0.4);
   test.end();
 });
 
 tape("lab.brighter() is equivalent to lab.brighter(1)", function(test) {
-  var c1 = color.lab("rgba(70, 130, 180, 0.4)"),
-      c2 = c1.brighter(),
-      c3 = c1.brighter(1);
+  const c1 = color.lab("rgba(70, 130, 180, 0.4)"),
+        c2 = c1.brighter(),
+        c3 = c1.brighter(1);
   test.labEqual(c2, c3.l, c3.a, c3.b, 0.4);
   test.end();
 });
 
 tape("lab.brighter(k) is equivalent to lab.darker(-k)", function(test) {
-  var c1 = color.lab("rgba(70, 130, 180, 0.4)"),
-      c2 = c1.brighter(1.5),
-      c3 = c1.darker(-1.5);
+  const c1 = color.lab("rgba(70, 130, 180, 0.4)"),
+        c2 = c1.brighter(1.5),
+        c3 = c1.darker(-1.5);
   test.labEqual(c2, c3.l, c3.a, c3.b, 0.4);
   test.end();
 });
 
 tape("lab.darker(k) returns a darker color if k > 0", function(test) {
-  var c = color.lab("rgba(165, 42, 42, 0.4)");
+  const c = color.lab("rgba(165, 42, 42, 0.4)");
   test.labEqual(c.darker(0.5), 29.149667346714935, 50.388769337115, 31.834059255569358, 0.4);
   test.labEqual(c.darker(1), 20.149667346714935, 50.388769337115, 31.834059255569358, 0.4);
   test.labEqual(c.darker(2), 2.149667346714935, 50.388769337115, 31.834059255569358, 0.4);
@@ -176,31 +176,31 @@ tape("lab.darker(k) returns a darker color if k > 0", function(test) {
 });
 
 tape("lab.darker(k) returns a copy", function(test) {
-  var c1 = color.lab("rgba(70, 130, 180, 0.4)"),
-      c2 = c1.darker(1);
+  const c1 = color.lab("rgba(70, 130, 180, 0.4)"),
+        c2 = c1.darker(1);
   test.labEqual(c1, 51.98624890550498, -8.362792037014344, -32.832699449697685, 0.4);
   test.labEqual(c2, 33.98624890550498, -8.362792037014344, -32.832699449697685, 0.4);
   test.end();
 });
 
 tape("lab.darker() is equivalent to lab.darker(1)", function(test) {
-  var c1 = color.lab("rgba(70, 130, 180, 0.4)"),
-      c2 = c1.darker(),
-      c3 = c1.darker(1);
+  const c1 = color.lab("rgba(70, 130, 180, 0.4)"),
+        c2 = c1.darker(),
+        c3 = c1.darker(1);
   test.labEqual(c2, c3.l, c3.a, c3.b, 0.4);
   test.end();
 });
 
 tape("lab.darker(k) is equivalent to lab.brighter(-k)", function(test) {
-  var c1 = color.lab("rgba(70, 130, 180, 0.4)"),
-      c2 = c1.darker(1.5),
-      c3 = c1.brighter(-1.5);
+  const c1 = color.lab("rgba(70, 130, 180, 0.4)"),
+        c2 = c1.darker(1.5),
+        c3 = c1.brighter(-1.5);
   test.labEqual(c2, c3.l, c3.a, c3.b, 0.4);
   test.end();
 });
 
 tape("lab.rgb() converts to RGB", function(test) {
-  var c = color.lab(50, 4, -5, 0.4);
+  const c = color.lab(50, 4, -5, 0.4);
   test.rgbEqual(c.rgb(), 123, 117, 128, 0.4);
   test.end();
 });

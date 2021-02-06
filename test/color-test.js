@@ -1,5 +1,5 @@
-var tape = require("tape"),
-    color = require("../");
+const tape = require("tape"),
+      color = require("../");
 
 require("./rgbEqual");
 require("./hslEqual");
