@@ -1,5 +1,5 @@
-var tape = require("tape"),
-    color = require("../");
+const tape = require("tape"),
+      color = require("../");
 
 tape.Test.prototype.rgbStrictEqual = function(actual, r, g, b, opacity) {
   this._assert(actual instanceof color.rgb

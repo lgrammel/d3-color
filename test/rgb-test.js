@@ -1,10 +1,10 @@
-var tape = require("tape"),
-    color = require("../");
+const tape = require("tape"),
+      color = require("../");
 
 require("./rgbEqual");
 
 tape("rgb(…) returns an instance of rgb and color", function(test) {
-  var c = color.rgb(70, 130, 180);
+  const c = color.rgb(70, 130, 180);
   test.ok(c instanceof color.rgb);
   test.ok(c instanceof color.color);
   test.end();
@@ -60,7 +60,7 @@ tape("rgb.hex() is an alias for rgb.formatHex()", function(test) {
 });
 
 tape("rgb.toString() reflects r, g and b channel values and opacity", function(test) {
-  var c = color.rgb("#abc");
+  const c = color.rgb("#abc");
   ++c.r, ++c.g, ++c.b, c.opacity = 0.5;
   test.equal(c + "", "rgba(171, 188, 205, 0.5)");
   test.end();
@@ -73,7 +73,7 @@ tape("rgb.toString() treats undefined channel values as 0", function(test) {
 });
 
 tape("rgb.toString() treats undefined opacity as 1", function(test) {
-  var c = color.rgb("#abc");
+  const c = color.rgb("#abc");
   ++c.r, ++c.g, ++c.b, c.opacity = NaN;
   test.equal(c + "", "rgb(171, 188, 205)");
   test.end();
@@ -161,8 +161,8 @@ tape("rgb(format) returns undefined channel values for unknown formats", functio
 });
 
 tape("rgb(rgb) copies an RGB color", function(test) {
-  var c1 = color.rgb("rgba(70, 130, 180, 0.4)"),
-      c2 = color.rgb(c1);
+  const c1 = color.rgb("rgba(70, 130, 180, 0.4)"),
+        c2 = color.rgb(c1);
   test.rgbEqual(c1, 70, 130, 180, 0.4);
   c1.r = c1.g = c1.b = c1.opacity = 0;
   test.rgbEqual(c1, 0, 0, 0, 0);
@@ -203,7 +203,7 @@ tape("rgb.displayable() returns true if the color is within the RGB gamut and op
 });
 
 tape("rgb.brighter(k) returns a brighter color if k > 0", function(test) {
-  var c = color.rgb("rgba(165, 42, 42, 0.4)");
+  const c = color.rgb("rgba(165, 42, 42, 0.4)");
   test.rgbEqual(c.brighter(0.5), 197, 50, 50, 0.4);
   test.rgbEqual(c.brighter(1), 236, 60, 60, 0.4);
   test.rgbEqual(c.brighter(2), 337, 86, 86, 0.4);
@@ -211,39 +211,39 @@ tape("rgb.brighter(k) returns a brighter color if k > 0", function(test) {
 });
 
 tape("rgb.brighter(k) returns a copy", function(test) {
-  var c1 = color.rgb("rgba(70, 130, 180, 0.4)"),
-      c2 = c1.brighter(1);
+  const c1 = color.rgb("rgba(70, 130, 180, 0.4)"),
+        c2 = c1.brighter(1);
   test.rgbEqual(c1, 70, 130, 180, 0.4);
   test.rgbEqual(c2, 100, 186, 257, 0.4);
   test.end();
 });
 
 tape("rgb.brighter() is equivalent to rgb.brighter(1)", function(test) {
-  var c1 = color.rgb("rgba(70, 130, 180, 0.4)"),
-      c2 = c1.brighter(),
-      c3 = c1.brighter(1);
+  const c1 = color.rgb("rgba(70, 130, 180, 0.4)"),
+        c2 = c1.brighter(),
+        c3 = c1.brighter(1);
   test.rgbEqual(c2, c3.r, c3.g, c3.b, 0.4);
   test.end();
 });
 
 tape("rgb.brighter(k) is equivalent to rgb.darker(-k)", function(test) {
-  var c1 = color.rgb("rgba(70, 130, 180, 0.4)"),
-      c2 = c1.brighter(1.5),
-      c3 = c1.darker(-1.5);
+  const c1 = color.rgb("rgba(70, 130, 180, 0.4)"),
+        c2 = c1.brighter(1.5),
+        c3 = c1.darker(-1.5);
   test.rgbEqual(c2, c3.r, c3.g, c3.b, 0.4);
   test.end();
 });
 
 tape("rgb(\"black\").brighter() still returns black", function(test) {
-  var c1 = color.rgb("black"),
-      c2 = c1.brighter(1);
+  const c1 = color.rgb("black"),
+        c2 = c1.brighter(1);
   test.rgbEqual(c1, 0, 0, 0, 1);
   test.rgbEqual(c2, 0, 0, 0, 1);
   test.end();
 });
 
 tape("rgb.darker(k) returns a darker color if k > 0", function(test) {
-  var c = color.rgb("rgba(165, 42, 42, 0.4)");
+  const c = color.rgb("rgba(165, 42, 42, 0.4)");
   test.rgbEqual(c.darker(0.5), 138, 35, 35, 0.4);
   test.rgbEqual(c.darker(1), 115, 29, 29, 0.4);
   test.rgbEqual(c.darker(2), 81, 21, 21, 0.4);
@@ -251,37 +251,37 @@ tape("rgb.darker(k) returns a darker color if k > 0", function(test) {
 });
 
 tape("rgb.darker(k) returns a copy", function(test) {
-  var c1 = color.rgb("rgba(70, 130, 180, 0.4)"),
-      c2 = c1.darker(1);
+  const c1 = color.rgb("rgba(70, 130, 180, 0.4)"),
+        c2 = c1.darker(1);
   test.rgbEqual(c1, 70, 130, 180, 0.4);
   test.rgbEqual(c2, 49, 91, 126, 0.4);
   test.end();
 });
 
 tape("rgb.darker() is equivalent to rgb.darker(1)", function(test) {
-  var c1 = color.rgb("rgba(70, 130, 180, 0.4)"),
-      c2 = c1.darker(),
-      c3 = c1.darker(1);
+  const c1 = color.rgb("rgba(70, 130, 180, 0.4)"),
+        c2 = c1.darker(),
+        c3 = c1.darker(1);
   test.rgbEqual(c2, c3.r, c3.g, c3.b, 0.4);
   test.end();
 });
 
 tape("rgb.darker(k) is equivalent to rgb.brighter(-k)", function(test) {
-  var c1 = color.rgb("rgba(70, 130, 180, 0.4)"),
-      c2 = c1.darker(1.5),
-      c3 = c1.brighter(-1.5);
+  const c1 = color.rgb("rgba(70, 130, 180, 0.4)"),
+        c2 = c1.darker(1.5),
+        c3 = c1.brighter(-1.5);
   test.rgbEqual(c2, c3.r, c3.g, c3.b, 0.4);
   test.end();
 });
 
 tape("rgb.rgb() returns this", function(test) {
-  var c = color.rgb(70, 130, 180);
+  const c = color.rgb(70, 130, 180);
   test.equal(c.rgb(), c);
   test.end();
 });
 
 tape("rgb.copy(…) returns a new rgb with the specified channel values", function(test) {
-  var c = color.rgb(70, 130, 180);
+  const c = color.rgb(70, 130, 180);
   test.equal(c.copy() instanceof color.rgb, true);
   test.equal(c.copy() + "", "rgb(70, 130, 180)");
   test.equal(c.copy({opacity: 0.2}) + "", "rgba(70, 130, 180, 0.2)");

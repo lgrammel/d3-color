@@ -1,5 +1,5 @@
-var tape = require("tape"),
-    color = require("../");
+const tape = require("tape"),
+      color = require("../");
 
 tape.Test.prototype.hslEqual = function(actual, h, s, l, opacity) {
   this._assert(actual instanceof color.hsl

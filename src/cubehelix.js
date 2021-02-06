@@ -2,14 +2,14 @@ import define, {extend} from "./define.js";
 import {Color, rgbConvert, Rgb, darker, brighter} from "./color.js";
 import {degrees, radians} from "./math.js";
 
-var A = -0.14861,
-    B = +1.78277,
-    C = -0.29227,
-    D = -0.90649,
-    E = +1.97294,
-    ED = E * D,
-    EB = E * B,
-    BC_DA = B * C - D * A;
+const A = -0.14861,
+      B = +1.78277,
+      C = -0.29227,
+      D = -0.90649,
+      E = +1.97294,
+      ED = E * D,
+      EB = E * B,
+      BC_DA = B * C - D * A;
 
 function cubehelixConvert(o) {
   if (o instanceof Cubehelix) return new Cubehelix(o.h, o.s, o.l, o.opacity);

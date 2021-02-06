@@ -50,7 +50,7 @@ define(Lab, lab, extend(Color, {
     return new Lab(this.l - K * (k == null ? 1 : k), this.a, this.b, this.opacity);
   },
   rgb: function() {
-    var y = (this.l + 16) / 116,
+    let y = (this.l + 16) / 116,
         x = isNaN(this.a) ? y : y + this.a / 500,
         z = isNaN(this.b) ? y : y - this.b / 200;
     x = Xn * lab2xyz(x);
